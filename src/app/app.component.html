@@ -1,0 +1,40 @@
+<h3>Import a table and get the calculations</h3>
+<table>
+  <tr>
+    <td class="tdMain">
+      <div class="btn ">
+        <input type="file" #fileImportInput name="File Upload" id="txtFileUpload" (change)="fileChangeListener($event)"
+          accept=".csv" />
+      </div>
+
+      <table border="1">
+        <tr>
+          <td id="tdHeader" *ngFor="let item of headers">{{ item }}</td>
+        </tr>
+        <tr *ngFor="let r of revenues;index as i">
+          <td>{{r.capacity}}</td>
+          <td>{{r.monthlyPrice}}</td>
+          <td>{{r.startDay}}</td>
+          <td>{{r.endDay}}</td>
+        </tr>
+      </table>
+      <br>
+
+    </td>
+    <td class="tdMain"></td>
+    <td class="tdMain">
+      <div id="panelMonth" [style.visibility]="isPanelVisible ? 'visible' : 'hidden'">
+        <div style="text-align:right" id="picker" class="btn ">
+          <form [formGroup]="myForm" novalidate>
+            <month-date-picker name="fecha" formControlName="fecha"></month-date-picker>
+          </form>
+          <button (click)="calculate($event)">click to calculte!</button>
+        </div>
+
+        <div [style.visibility]="isReusltVisible ? 'visible' : 'hidden'">Total revenue for selected month: {{sumMonth | number:'1.2-2'}}</div>
+        <div [style.visibility]="isReusltVisible ? 'visible' : 'hidden'">Total capacity of the unreserved offices for
+          the month: {{capacity}}</div>
+      </div>
+    </td>
+  </tr>
+</table>
